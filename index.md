@@ -24,8 +24,7 @@
 * Создаём новый класс-наследник от&nbsp;`TForm`, добавляем к&nbsp;нему метод, который будет нашей новой оконной процедурой:
 ```pascal
 procedure TWinForm.WndProc(var Message: TMessage);
-begin
-&nbsp;&nbsp;Dispatch(Message);
+beginDispatch(Message);
 end;
 ```
 * В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
