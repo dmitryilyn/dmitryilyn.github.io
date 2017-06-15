@@ -184,13 +184,23 @@ a {
     margin-bottom: 1em;
   }
 
-  code {
-    padding: 2px 4px;
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.9rem;
-    color: $code-text-color;
-    background-color: $code-bg-color;
-    border-radius: 0.3rem;
+  code,
+  tt {
+    padding: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba($black, 0.05);
+    border-radius: 3px; // don't add padding, gives scrollbars
+
+    &::before,
+    &::after {
+      letter-spacing: -0.2em; // this creates padding
+      content: "\00a0";
+    }
+
+    br { display: none; }
   }
 
   pre {
@@ -204,11 +214,11 @@ a {
     border: solid 1px $border-color;
     border-radius: 0.3rem;
 
+    // Code tags within code blocks (<pre>s)
     > code {
       padding: 0;
       margin: 0;
-      font-size: 0.9rem;
-      color: $code-text-color;
+      font-size: 100%;
       word-break: normal;
       white-space: pre;
       background: transparent;
@@ -217,7 +227,7 @@ a {
   }
 
   .highlight {
-    margin-bottom: 1rem;
+    margin-bottom: $margin;
 
     pre {
       margin-bottom: 0;
@@ -227,28 +237,28 @@ a {
 
   .highlight pre,
   pre {
-    padding: 0.8rem;
+    padding: $margin;
     overflow: auto;
-    font-size: 0.9rem;
+    font-size: 85%;
     line-height: 1.45;
-    border-radius: 0.3rem;
-    -webkit-overflow-scrolling: touch;
+    background-color: $gray-100;
+    border-radius: 3px;
   }
 
   pre code,
   pre tt {
     display: inline;
-    max-width: initial;
+    max-width: auto;
     padding: 0;
     margin: 0;
-    overflow: initial;
+    overflow: visible;
     line-height: inherit;
     word-wrap: normal;
     background-color: transparent;
     border: 0;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       content: normal;
     }
   }
