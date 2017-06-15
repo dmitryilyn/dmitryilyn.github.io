@@ -25,14 +25,14 @@
 ```pascal
 procedure TWinForm.WndProc(var Message: TMessage);
 begin
-  Dispatch(Message);
+&nbsp;&nbsp;Dispatch(Message);
 end;
 ```
 * В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
 ```pascal
 TWinForm = class(TForm)
 private
-  FSavedWndProc: TFNWndProc;
+&nbsp;&nbsp;FSavedWndProc: TFNWndProc;
 ```
 ```pascal
 constructor TWinForm.Create(AOwner: TComponent);

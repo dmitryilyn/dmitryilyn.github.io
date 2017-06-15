@@ -228,7 +228,6 @@ a:visited {
     background-color: $code-bg-color;
     border: solid 1px $border-color;
     border-radius: 0.3rem;
-    white-space: pre;
 
     > code {
       padding: 0;
@@ -238,6 +237,7 @@ a:visited {
       word-break: normal;
       background: transparent;
       border: 0;
+      white-space: pre;
     }
   }
 
