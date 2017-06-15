@@ -30,7 +30,7 @@
     Dispatch(Message);
   end;
   ```
-* В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
+* В&nbsp;конструкторе формы с&nbsp;помощью [`GetWindowLong`](https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms633584(v=vs.85).aspx) получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью [`SetWindowLong`](https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms633591(v=vs.85).aspx) задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
 
   ```pascal
   TWinForm = class(TForm)
