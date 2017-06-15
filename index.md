@@ -7,6 +7,7 @@
 В&nbsp;VCL-приложениях Delphi оконная процедура `WndProc` присутствует во&nbsp;всех наследниках класса `TControl`&nbsp;и, либо обрабатывает входящее сообщение непосредственно внутри себя, либо [передаёт его обработчику](http://docwiki.embarcadero.com/Libraries/Berlin/en/System.TObject.Dispatch) с&nbsp;помощью метода `Dispatch`. Таким образом у&nbsp;разработчика VCL-приложения есть сразу несколько способов обработки сообщений:
 * Перегрузить метод `WndProc`
 * Добавить обработчик событий на&nbsp;определённое сообщение:
+
   ```pascal
   procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
   ```
@@ -22,6 +23,7 @@
 
 Итак, необходимо сделать свой обработчик сообщений Windows имея в&nbsp;своём распоряжении только дескриптор окна. Изучив варианты, я&nbsp;остановился следующем:
 * Создаём новый класс-наследник от&nbsp;`TForm`, добавляем к&nbsp;нему метод, который будет нашей новой оконной процедурой:
+
 ```pascal
 procedure TWinForm.WndProc(var Message: TMessage);
 begin
@@ -29,6 +31,7 @@ begin
 end;
 ```
 * В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
+
 ```pascal
 TWinForm = class(TForm)
 private
@@ -50,6 +53,7 @@ begin
 end;
 ```
 * Перегружаем метод `DefaultHandle` в&nbsp;теле которого вызываем ранее сохранённую оконную процедуру. Таким образом, если после `Dispatch` перехваченное сообщение не&nbsp;будет обработано, то&nbsp;оно автоматически будет передано в&nbsp;исходный обработчик внутри `TPlatformWin`.
+
 ```pascal
 procedure TWinForm.DefaultHandler(var Message);
 begin
