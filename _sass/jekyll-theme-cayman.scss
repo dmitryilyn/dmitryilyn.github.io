@@ -33,13 +33,28 @@ body {
   color: $body-text-color;
 }
 
-a {
-  color: $body-link-color;
-  text-decoration: none;
+a.no_visited:visited,
+.no_visited a:visited,
+a.no_visited.underline:visited,
+.no_visited a.underline:visited,
+body a.underline:link,
+body a:link {
+    color: #008ace;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 137, 255, 0.3);
+}
 
-  &:hover {
-    text-decoration: underline;
-  }
+body a.underline:hover,
+body a:hover {
+    color: #f41224 !important;
+    text-decoration: none;
+    border-bottom-color: rgba(244, 18, 36, 0.3) !important;
+}
+
+a:visited {
+    color: #b40eb4;
+    text-decoration: none;
+    border-bottom-color: rgba(180, 14, 180, 0.3);
 }
 
 .btn {
