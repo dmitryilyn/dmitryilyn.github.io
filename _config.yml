@@ -1,3 +1,7 @@
 theme: jekyll-theme-cayman
 markdown: kramdown
-highlighter: pygments
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter_opts:
+    disable: true
