@@ -23,6 +23,8 @@ Syntax highlighted code block
 
 **Bold** and _Italic_ and `Code` text
 
+[First post]({{ site.baseurl }}{% post_url 2017-06-15-handling-windows-messages-in-fmx-app %})
+
 [Link](url) and ![Image](src)
 ```
 
