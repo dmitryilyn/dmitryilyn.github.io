@@ -1,2 +1,2 @@
 theme: jekyll-theme-cayman
-year: <%= format(Sys.time(), "%Y") %>
+year: "`r format(Sys.Date(), '%B %d, %Y')`"
