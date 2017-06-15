@@ -23,40 +23,41 @@
 
 Итак, необходимо сделать свой обработчик сообщений Windows имея в&nbsp;своём распоряжении только дескриптор окна. Изучив варианты, я&nbsp;остановился следующем:
 * Создаём новый класс-наследник от&nbsp;`TForm`, добавляем к&nbsp;нему метод, который будет нашей новой оконной процедурой:
-```pascal
-procedure TWinForm.WndProc(var Message: TMessage);
-begin
-  Dispatch(Message);
-end;
-```
-* В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
-```pascal
-TWinForm = class(TForm)
-private
-  FSavedWndProc: TFNWndProc;
-```
-```pascal
-constructor TWinForm.Create(AOwner: TComponent);
-begin
-  inherited;
-  FSavedWndProc := TFNWndProc(GetWindowLong(
-    FormToHWND(Self), 
-    GWL_WNDPROC
-  ));
-  SetWindowLong(
-    FormToHWND(Self), 
-    GWL_WNDPROC, 
-    IntPtr(MakeObjectInstance(WndProc)) 
-  );
-end;
-```
-* Перегружаем метод `DefaultHandle` в&nbsp;теле которого вызываем ранее сохранённую оконную процедуру. Таким образом, если после `Dispatch` перехваченное сообщение не&nbsp;будет обработано, то&nbsp;оно автоматически будет передано в&nbsp;исходный обработчик внутри `TPlatformWin`.
 
-```pascal
-procedure TWinForm.DefaultHandler(var Message);
-begin
-  if FSavedWndProc <> nil then
-    with TMessage(Message) do
-  Result := CallWindowProc(FSavedWndProc, Wnd, Msg, WParam, LParam);
-end;
-```
+  ```pascal
+  procedure TWinForm.WndProc(var Message: TMessage);
+  begin
+    Dispatch(Message);
+  end;
+  ```
+* В&nbsp;конструкторе формы с&nbsp;помощью `GetWindowLong` получаем адрес текущей оконной процедуры и&nbsp;сохраняем его. Затем, с&nbsp;помощью `SetWindowLong` задаём в&nbsp;качестве оконной процедуры наш недавно созданный метод `WndProc`.
+
+  ```pascal
+  TWinForm = class(TForm)
+  private
+    FSavedWndProc: TFNWndProc;
+  ```
+  ```pascal
+  constructor TWinForm.Create(AOwner: TComponent);
+  begin
+    inherited;
+    FSavedWndProc := TFNWndProc(GetWindowLong(
+      FormToHWND(Self), 
+      GWL_WNDPROC
+    ));
+    SetWindowLong(
+      FormToHWND(Self), 
+      GWL_WNDPROC, 
+      IntPtr(MakeObjectInstance(WndProc)) 
+    );
+  end;
+  ```
+* Перегружаем метод `DefaultHandle` в&nbsp;теле которого вызываем ранее сохранённую оконную процедуру. Таким образом, если после `Dispatch` перехваченное сообщение не&nbsp;будет обработано, то&nbsp;оно автоматически будет передано в&nbsp;исходный обработчик внутри `TPlatformWin`.
+  ```pascal
+  procedure TWinForm.DefaultHandler(var Message);
+  begin
+    if FSavedWndProc <> nil then
+      with TMessage(Message) do
+    Result := CallWindowProc(FSavedWndProc, Wnd, Msg, WParam, LParam);
+  end;
+  ```
