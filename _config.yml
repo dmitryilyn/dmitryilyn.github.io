@@ -1,3 +1,2 @@
 theme: jekyll-theme-cayman
-year: "`r format(Sys.Date(), '%B %d, %Y')`"
 
