@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title:  "Обработка сообщений Windows в приложениях FireMonkey"
 date:   2017-06-15 16:16:01 -0800
